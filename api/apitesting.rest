@@ -1,8 +1,76 @@
+//Loginn page
 ###
-POST http://localhost:5000/api/reg
+POST   http://localhost:5000/api/logincheck
 Content-Type: application/json
 
 {
     "username":"Lokesh",
     "password":"123"
 }
+
+
+
+###
+
+
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+    "username":"Depu Ydv",
+    "password":"123"
+}
+
+
+###
+
+//User
+
+POST http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+    "username":"Shivani Yadav",
+    "img":"https://femalecricket.com/wp-content/uploads/2019/11/Ellyse-Perry-Female-Cricketer-Century-1200x900.jpg"
+}
+
+###
+GET http://localhost:5000/api/users
+
+###
+PUT http://localhost:5000/api/user/66d29c902421b09b011ce436
+Content-Type: application/json
+
+{
+    "username":"Sunil Ydv",
+    "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvuWKz6BR31w0vRv-qAo5_5zF8sBwrHWTLgzq1AO0NR3F4qGK6"
+}
+
+###
+DELETE http://localhost:5000/api/user/66d29e762421b09b011ce457
+
+// Gameadd/Dashboard
+###
+GET http://localhost:5000/api/fetch
+
+
+###
+PUT  http://localhost:5000/api/update/66d6ae2d682e7b10326db105
+Content-Type: application/json
+
+{
+    "Name":"Lokesh Yadav",
+    "UnforcedError":"26.3",
+    "PerformanceWin":"16.5",
+    "VollyRate":"19.5",
+    "Gameplayed":"25",
+    "Gamewon":"10",
+    "gameName": "hockey "
+
+}
+###
+DELETE http://localhost:5000/api/delete/66dc4cfc0820be8ac49c5950
+
+
+###
+GET http://localhost:5000/api/dashboard/66d6ae2d682e7b10326db105
