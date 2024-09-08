@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+
+# Coverage directory used by testing tools
+coverage/
+
+# Optional npm cache directory
+.npm/
+
+# Production build directory
+/public
+
+# Dependency directories
+jspm_packages/
+
+# IDE files
+*.idea
+*.vscode
+
+# MacOS
+.DS_Store
