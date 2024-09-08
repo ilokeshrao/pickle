@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/users
+GET http://localhost:5000/api/user/66d204da2421b09b011ce3ec
 
 ###
 PUT http://localhost:5000/api/user/66d29c902421b09b011ce436

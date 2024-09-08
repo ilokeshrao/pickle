@@ -44,6 +44,7 @@ exports.getUserById = async (req, res) => {
     }
 };
 
+
 // Controller for updating a user by ID (PUT)
 exports.updateUser = async (req, res) => {
     try {

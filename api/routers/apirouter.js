@@ -11,6 +11,7 @@ router.post('/logincheck', Regc.logincheck);
 router.get('/dashboard/:id', dashboardController.getDashboardDataByPlayerId);
 
 
+
 // Dashboard Routes
 router.post('/saveData', dashboardController.createDashboardData); // POST request to create dashboard data including gameName
 router.get('/fetch', dashboardController.getAllDashboardData); // GET request to fetch all dashboard data

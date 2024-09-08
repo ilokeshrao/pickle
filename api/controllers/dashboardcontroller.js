@@ -2,31 +2,96 @@
 const Dashboard = require('../models/dashboard');
 
 // Create Dashboard Data
-exports.createDashboardData = async (req, res) => {
+// exports.createDashboardData = async (req, res) => {
+//     try {
+//         const { selectedTeam, totalUnforcedErrorRate, performanceWin, totalVolleyRate, gameName } = req.body; // Add gameName
+
+//         const newDashboard = new Dashboard({
+//             Name: selectedTeam,
+//             UnforcedError: totalUnforcedErrorRate,
+//             PerformanceWin: performanceWin,
+//             VollyRate: totalVolleyRate,
+//             GameName: gameName // Save gameName
+//         });
+
+//         await newDashboard.save();
+//         res.status(201).json({
+//             message: 'Dashboard data created successfully',
+//             data: newDashboard
+//         });
+//     } catch (error) {
+//         console.error('Error creating dashboard data:', error);
+//         res.status(500).json({
+//             message: 'Error creating dashboard data',
+//             error: error.message
+//         });
+//     }
+// };
+exports.getDashboardDataByPlayerId = async (req, res) => {
     try {
-        const { selectedTeam, totalUnforcedErrorRate, performanceWin, totalVolleyRate, gameName } = req.body; // Add gameName
+        const { id } = req.params; // Player ID or name
 
-        const newDashboard = new Dashboard({
-            Name: selectedTeam,
-            UnforcedError: totalUnforcedErrorRate,
-            PerformanceWin: performanceWin,
-            VollyRate: totalVolleyRate,
-            GameName: gameName // Save gameName
-        });
+        const playerGames = await Dashboard.find({ Name: id });
 
-        await newDashboard.save();
-        res.status(201).json({
-            message: 'Dashboard data created successfully',
-            data: newDashboard
-        });
+        if (!playerGames.length) {
+            return res.status(404).json({ message: 'No games found for this player' });
+        }
+
+        res.status(200).json(playerGames);
     } catch (error) {
-        console.error('Error creating dashboard data:', error);
-        res.status(500).json({
-            message: 'Error creating dashboard data',
-            error: error.message
-        });
+        res.status(500).json({ message: 'Error fetching game data', error: error.message });
     }
 };
+
+// exports.createDashboardData = async (req, res) => {
+//     try {
+//         const { 
+//             selectedTeam, totalUnforcedErrorRate, performanceWin, totalVolleyRate, 
+//            gameName 
+//         } = req.body;
+
+//         const newDashboard = new Dashboard({
+//             Name: selectedTeam,
+//             UnforcedError: totalUnforcedErrorRate,
+//             PerformanceWin: performanceWin,
+//             VollyRate: totalVolleyRate,
+//             GameName: gameName
+//         });
+
+//         await newDashboard.save();
+//         res.status(201).json({ message: 'Game data saved successfully', data: newDashboard });
+//     } catch (error) {
+//         console.error('Error creating dashboard data:', error);
+//         res.status(500).json({ message: 'Error saving game data', error: error.message });
+//     }
+// };
+exports.createDashboardData = async (req, res) => {
+
+    try {
+        const { selectedTeam, totalUnforcedErrorRate, performanceWin, totalVolleyRate, gameName } = req.body;
+
+        // Find or create the game entry based on Name and GameName
+        const result = await Dashboard.findOneAndUpdate(
+            { Name: selectedTeam, GameName: gameName }, // Query to find the existing record
+            {
+                UnforcedError: totalUnforcedErrorRate,
+                PerformanceWin: performanceWin,
+                VollyRate: totalVolleyRate,
+                GameName: gameName
+            },
+            {
+                new: true, // Return the updated document
+                upsert: true // Create if it does not exist
+            }
+        );
+
+        res.status(201).json(result);
+    } catch (error) {
+        console.error('Error saving data:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 
 // Get All Dashboard Data
 exports.getAllDashboardData = async (req, res) => {
